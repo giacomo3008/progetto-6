@@ -73,21 +73,5 @@ function printData() {
     }
 }
 
-function deleteProd(id) {
-    products.forEach(async (prod) => {
-        if(prod._id === id){
-            try {
-                await fetch(STRIPE_URL + prod._id, {
-                    method: 'DELETE',
-                    headers: {
-                        authorization: API_KEY,
-                    }
-                });
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    })
-}
 
 

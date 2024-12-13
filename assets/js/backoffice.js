@@ -8,7 +8,9 @@ const prodBrand = document.getElementById("prodBrand");
 const prodPrice = document.getElementById("prodPrice");
 const prodImg = document.getElementById("prodImg");
 const form = document.getElementsByTagName("form")[0];
-const divDelete = document.getElementsByClassName("div-delete")[0];
+const btnContainer = document.getElementsByClassName("btn-container")[0];
+const btnDelete = document.getElementById("btnDelete");
+
 
 let ifModified = false;
 
@@ -24,16 +26,27 @@ class Product {
 
 btnSendForm.addEventListener('click', function (e) {
   e.preventDefault();
-  pushItem();
+  if (ifModified) {
+    modifyItem(getId());
+  } else {
+    pushItem();
+  }
 });
 
 window.onload = function () {
   modifyProd(getId());
-  if(ifModified){
-    let btnDelete = document.createElement("button");
-    btnDelete.setAttribute("display","block");
-    btnDelete.classList.add("add-product btn btn-danger");
-    btnDelete.innerText = 
+  if (ifModified) {
+    btnContainer.classList.add("justify-content-between");
+    btnDelete.classList.remove("d-none");
+    btnDelete.addEventListener("click",async function (e) {
+      e.preventDefault();
+      await deleteProd(getId());
+      window.location.href = "index.html";
+    });
+  } else {
+    btnContainer.classList.remove("justify-content-between");
+    btnContainer.classList.add("justify-content-end")
+    btnDelete.classList.add("d-none");
   }
 }
 
@@ -48,7 +61,6 @@ async function pushItem() {
         authorization: API_KEY
       }
     });
-    console.log(prod);
     form.reset();
   } catch (err) {
     console.log("Errore nell'inserimento del prodotto: ", err);
@@ -66,7 +78,6 @@ function modifyProd(id) {
     let products = JSON.parse(localStorage.getItem("products"));
     products.forEach((prod) => {
       if (prod._id === id) {
-        console.log(prod.name);
         prodName.value = prod.name;
         prodBrand.value = prod.brand;
         prodDescr.value = prod.description;
@@ -74,6 +85,36 @@ function modifyProd(id) {
         prodPrice.value = parseInt(prod.price);
       }
     });
-
   }
 }
+
+async function modifyItem(id) {
+  console.log(STRIPE_URL + id);
+  let newProd = new Product(prodName.value, prodDescr.value, prodBrand.value, prodImg.value, prodPrice.value);
+  try {
+    await fetch(STRIPE_URL + id, {
+      method: "PUT",
+      body: JSON.stringify(newProd),
+      headers: {
+        "Content-Type": "application/json",
+        authorization: API_KEY
+      }
+    });
+  } catch (err) {
+    console.log("Errore nella modifica del prodotto: ", err);
+  }
+}
+
+async function deleteProd(id) {
+  try {
+    await fetch(STRIPE_URL + id, {
+      method: 'DELETE',
+      headers: {
+        authorization: API_KEY,
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+

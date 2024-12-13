@@ -47,11 +47,13 @@
                     <label for="prodDescr" class="form-label">Descrizione prodotto</label>
                     <textarea class="form-control" id="prodDescr" rows="3"></textarea>
                 </div>
-                <div class="btn-container d-flex flex-row justify-content-between">
-                    <button type="button" class="add-product btn btn-danger mt-4 d-none">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                    <div class="btn-container align-self-end mt-4">
+                <div class="btn-container d-flex flex-row">
+                    <a href="index.html">
+                        <button type="button" id="btnDelete" class="add-product btn btn-danger mt-4 d-none">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </a>
+                    <div class="btn-container mt-4">
                         <button type="reset" class="add-product btn btn-white border-black me-2">Reset</button>
                         <button type="submit" id="sendForm" class="add-product btn btn-orange">Save</button>
                     </div>
