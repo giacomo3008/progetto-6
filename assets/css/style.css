@@ -28,3 +28,16 @@ main{
     background-color: #11cbf07b;
     color: black;
 }
+
+.text-decoration-none{
+    color: #05A6ED;
+}
+
+.text-decoration-none:hover{
+    color: #05a7ed8f;
+}
+
+.custom-badge{
+    color: rgb(221, 184, 0);
+    background-color: black;
+}

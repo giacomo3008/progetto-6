@@ -10,7 +10,7 @@ const prodImg = document.getElementById("prodImg");
 const form = document.getElementsByTagName("form")[0];
 const btnContainer = document.getElementsByClassName("btn-container")[0];
 const btnDelete = document.getElementById("btnDelete");
-
+const title = document.getElementsByTagName("h2")[0];
 
 let ifModified = false;
 
@@ -36,6 +36,7 @@ btnSendForm.addEventListener('click', function (e) {
 window.onload = function () {
   modifyProd(getId());
   if (ifModified) {
+    title.innerText = "Edit Product";
     btnContainer.classList.add("justify-content-between");
     btnDelete.classList.remove("d-none");
     btnDelete.addEventListener("click",async function (e) {
@@ -44,6 +45,7 @@ window.onload = function () {
       window.location.href = "index.html";
     });
   } else {
+    title.innerText = "Add Product";
     btnContainer.classList.remove("justify-content-between");
     btnContainer.classList.add("justify-content-end")
     btnDelete.classList.add("d-none");
