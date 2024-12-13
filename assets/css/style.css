@@ -1,0 +1,30 @@
+header{
+    background-color: #131921;
+}
+
+main{
+    padding-right: 15rem;
+    padding-left: 15rem;
+}
+
+.add-product{
+    width: 15rem;
+}
+
+.btn-orange {
+    background-color: #FFC008;
+}
+
+.btn-orange:hover{
+    background-color: #ffc1088d;
+    color: black;
+}
+
+.btn-azzurro{
+    background-color: #11CAF0;
+}
+
+.btn-azzurro:hover{
+    background-color: #11cbf07b;
+    color: black;
+}
